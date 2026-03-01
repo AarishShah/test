@@ -1,0 +1,210 @@
+{
+    "name": "Sample Fruits API",
+    "description": "Example description generated natively.",
+    "item": [
+        {
+            "name": "Create Fruit",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "if (pm.response.code === 200 || pm.response.code === 201) {\r",
+                            "    const response = pm.response.json();\r",
+                            "    if (response.data && response.data._id) {\r",
+                            "        pm.environment.set('resourceId', response.data._id);\r",
+                            "    }\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "description": "JSON body type"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"name\": \"Apple\",\n  \"color\": \"red\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}{{service_name}}/fruits",
+                    "host": [
+                        "{{base_url}}{{service_name}}"
+                    ],
+                    "path": [
+                        "fruits"
+                    ]
+                },
+                "description": "Creates a fruit. Body constraints: Must include `name` field (string) and `color` field (string)."
+            },
+            "response": [
+                {
+                    "name": "Successful Response",
+                    "originalRequest": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{base_url}}{{service_name}}/fruits"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Apple\",\n  \"color\": \"red\"\n}"
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "body": "{\n    \"success\": true,\n    \"data\": { \"_id\": \"fruit-123\", \"name\": \"Apple\", \"color\": \"red\" }\n}"
+                },
+                {
+                    "name": "Validation Error",
+                    "originalRequest": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{base_url}}{{service_name}}/fruits"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{}"
+                        }
+                    },
+                    "status": "Bad Request",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "body": "{\n    \"success\": false,\n    \"message\": \"Validation Failed\",\n    \"errors\": [\n        { \"field\": \"name\", \"message\": \"Name is required\" },\n        { \"field\": \"color\", \"message\": \"Color is required\" }\n    ]\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get All Fruits",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}{{service_name}}/fruits?page=1&limit=10",
+                    "host": [
+                        "{{base_url}}{{service_name}}"
+                    ],
+                    "path": [
+                        "fruits"
+                    ],
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": "1",
+                            "description": "Page number (default: 1)"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "10",
+                            "description": "Items per page (default: 10)"
+                        },
+                        {
+                            "key": "search",
+                            "value": "",
+                            "disabled": true,
+                            "description": "Search keyword"
+                        }
+                    ]
+                },
+                "description": "Retrieves a paginated list of fruits."
+            },
+            "response": [
+                {
+                    "name": "Successful Response",
+                    "originalRequest": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{base_url}}{{service_name}}/fruits?page=1&limit=10",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "body": "{\n    \"success\": true,\n    \"data\": [\n        { \"_id\": \"fruit-123\", \"name\": \"Apple\", \"color\": \"red\" },\n        { \"_id\": \"fruit-456\", \"name\": \"Banana\", \"color\": \"yellow\" }\n    ],\n    \"meta\": { \"page\": 1, \"limit\": 10, \"total\": 2 }\n}"
+                }
+            ]
+        },
+        {
+            "name": "Delete Fruit",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}{{service_name}}/fruits/:id",
+                    "host": [
+                        "{{base_url}}{{service_name}}"
+                    ],
+                    "path": [
+                        "fruits",
+                        ":id"
+                    ],
+                    "variable": [
+                        {
+                            "key": "id",
+                            "value": "{{resourceId}}",
+                            "description": "Target ID"
+                        }
+                    ]
+                },
+                "description": "Deletes a specific fruit by ID."
+            },
+            "response": [
+                {
+                    "name": "Successful Response",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{base_url}}{{service_name}}/fruits/:id",
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{resourceId}}"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "body": "{\n    \"success\": true,\n    \"message\": \"Fruit successfully deleted\"\n}"
+                },
+                {
+                    "name": "Not Found Error",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{base_url}}{{service_name}}/fruits/:id",
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "{{resourceId}}"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "Not Found",
+                    "code": 404,
+                    "_postman_previewlanguage": "json",
+                    "body": "{\n    \"success\": false,\n    \"message\": \"Fruit not found or already deleted\"\n}"
+                }
+            ]
+        }
+    ]
+}
