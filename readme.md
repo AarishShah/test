@@ -33,7 +33,10 @@ To use this template for your own APIs, you will need to customize a few areas:
 
 ### How to Generate Endpoints
 When working within an AI-enabled IDE or pairing with an AI agent:
-1. Instruct the AI to **"Generate a Postman endpoint for [Module/Route]"** or use the `/generate-endpoint` slash command.
+1. Instruct the AI with a prompt like:
+   > "Using the `@somemicroservice` workspace, analyze the routes for the 'fruits' resource and generate Postman endpoints for them using the `generate-endpoint` workflow."
+   
+   Alternatively, you can instruct the AI to **"Generate a Postman endpoint for [Module/Route]"** or use the `/generate-endpoint` slash command.
 2. The AI will parse your backend routes and automatically scaffold a new folder inside the **"AI Generated"** collection (`AI Generated.json`).
 3. **Review and Move**: Once the AI finishes generating the endpoints, review them within Postman. If the configuration is accurate, drag the new folder into the appropriate finalized collection.
 
