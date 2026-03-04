@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/invoices/:invoiceId"
+method: GET
+description: Retrieves an invoice by ID.
+headers:
+  Authorization: Bearer {{access_token}}
+pathVariables:
+  - key: invoiceId
+    value: "{{resourceId}}"
+    description: "The targeted invoice identifier"

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/users/:userId"
+method: GET
+description: Retrieves user profile details.
+headers:
+  Authorization: Bearer {{access_token}}
+pathVariables:
+  - key: userId
+    value: "{{resourceId}}"
+    description: "The unique ID of the user"
+queryParams:
+  - key: include_profile
+    value: "true"
+    disabled: true
+    description: "Whether to join related profile data"

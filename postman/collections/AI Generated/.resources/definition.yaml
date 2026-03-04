@@ -1,0 +1,15 @@
+$kind: collection
+description: >-
+  - This is an AI generated collection.
+
+  - Agents in IDE like Anti-gravity, Claude, Cursor etc will edit this
+  collection and users should not place content in this collection.
+
+  - Once the user approves of this collection, they should move the folder to
+  the desired collection(s).
+auth:
+  - id: ""
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{access_token}}"

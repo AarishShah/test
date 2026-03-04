@@ -1,0 +1,3 @@
+$kind: collection
+name: Settings API
+description: "Manages global platform configuration."

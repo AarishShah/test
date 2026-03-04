@@ -1,0 +1,20 @@
+$kind: environment
+name: Local Environment
+values:
+  - key: base_url
+    value: http://localhost:3000
+    description: "The base URL for local development services"
+    enabled: true
+  - key: api_version
+    value: /api/v1
+    description: "The current major API version routing prefix"
+    enabled: true
+  - key: access_token
+    value: ""
+    type: secret
+    description: "The bearer token utilized for all authenticated endpoint requests"
+    enabled: true
+  - key: resourceId
+    value: ""
+    description: "Dynamically populated ID of the most recently created entity via POST requests"
+    enabled: true

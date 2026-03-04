@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/orders/:orderId"
+method: GET
+description: Retrieves details of a specific order.
+headers:
+  Authorization: Bearer {{access_token}}
+pathVariables:
+  - key: orderId
+    value: "{{resourceId}}"
+    description: "The unique ID of the order"

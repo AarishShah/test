@@ -1,0 +1,34 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/orders"
+method: POST
+description: Creates a new order in the system.
+headers:
+  Authorization: Bearer {{access_token}}
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "customerId": "60d5ecb8b392d7001f3e9b11",
+      "items": [
+        {
+          "productId": "70f8ecb8b392d7001f3d4a22",
+          "quantity": 2
+        }
+      ],
+      
+      // Optional shipping priority
+      "priority": "express"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200 || pm.response.code === 201) {
+          const response = pm.response.json();
+          if (response.created && response.created.length > 0) {
+              pm.environment.set('resourceId', response.created[0]._id);
+          } else if (response.data && response.data._id) {
+              pm.environment.set('resourceId', response.data._id);
+          }
+      }

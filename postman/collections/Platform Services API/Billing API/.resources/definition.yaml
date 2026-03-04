@@ -1,0 +1,3 @@
+$kind: collection
+name: Billing API
+description: "Manages subscriptions and invoices."

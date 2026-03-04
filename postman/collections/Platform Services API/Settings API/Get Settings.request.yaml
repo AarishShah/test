@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/settings"
+method: GET
+description: Retrieves global platform settings.
+headers:
+  Authorization: Bearer {{access_token}}

@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/auth/login"
+method: POST
+description: Authenticates a user and returns a token.
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "user@example.com",
+      "password": "securepassword123"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200) {
+          const response = pm.response.json();
+          if (response.token) {
+              pm.environment.set('access_token', response.token);
+          }
+      }

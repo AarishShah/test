@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/products/:productId"
+method: GET
+description: Retrieves details of a specific product.
+headers:
+  Authorization: Bearer {{access_token}}
+pathVariables:
+  - key: productId
+    value: "{{resourceId}}"
+    description: "The unique ID of the product"
