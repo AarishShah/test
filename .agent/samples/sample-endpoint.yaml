@@ -1,0 +1,42 @@
+$kind: http-request
+url: "{{base_url}}{{api_version}}/users/api-key/:userId"
+method: POST
+description: >
+  Generates a new API key for a user.
+  
+  Expected payload:
+  {
+    "name": "string",
+    "expiresAt": "ISO8601 Date"
+  }
+headers:
+  Authorization: Bearer {{access_token}}
+  Content-Type: application/json
+pathVariables:
+  - key: userId
+    value: "{{resourceId}}"
+    description: "The targeted user account"
+queryParams:
+  - key: enforce_strict
+    value: "true"
+    disabled: true
+    description: "Requires exact string matching for the API key generation process (default: false)"
+body:
+  type: json
+  content: |-
+    {
+      "name": "via Postman - Production Key",
+      
+      // Optional Field
+      "expiresAt": "2025-12-31T23:59:59Z"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200 || pm.response.code === 201) {
+          const response = pm.response.json();
+          if (response.data && response.data._id) {
+              pm.environment.set('resourceId', response.data._id);
+          }
+      }
